@@ -375,10 +375,11 @@ vector<vector<int> > myDynamicProgramming(int n, int c, int V[], int W[])
          if(row==0)
          {
            matrix[row][col]=0;
+           
          }
          else if(col>=W[row-1])
          {
-           matrix[col][row]=max(matrix[row-1][col-W[row-1]]+V[row-1], matrix[row-1][col]);
+           matrix[row][col]=max(matrix[row-1][col-W[row-1]]+V[row-1], matrix[row-1][col]);
          }
          else if(W[row-1]>col)
          {
@@ -425,6 +426,7 @@ vector<int> DecToBin(int n, int number)
 
 vector<int> myBitmask(int n, int c, int V[], int W[])
 {
+  
    vector<vector<int> > dynamicProgram= myDynamicProgramming(n,c,V,W);
    vector<int> bin(n,0);
    vector<int> zeros(n,0);
@@ -435,11 +437,13 @@ vector<int> myBitmask(int n, int c, int V[], int W[])
   for(int x=0;x<numerations;x++)
   {
     bin=DecToBin(n,x);
+    
     for(int y=0;y<n;y++)
     {
       TotalWeight=TotalWeight+bin[y]*W[y];
       TotalValue=TotalValue+bin[y]*V[y];
-      if(TotalValue==highestValue && TotalWeight<=c)
+    }
+    if(TotalValue==highestValue && TotalWeight<=c)
       {
         break;
       }
@@ -449,7 +453,6 @@ vector<int> myBitmask(int n, int c, int V[], int W[])
         TotalValue=0;
         bin=zeros;
       }
-    }
   }
   return bin;
    
@@ -471,3 +474,19 @@ vector<int> myBitmask(int n, int c, int V[], int W[])
     vector<int> Z: Optimal choice of items for the given constraints - vector<int>
   */
 }
+/*int main()
+{
+  //cout<<"Hello word studfgfd"<<endl;
+  vector<int> record;
+  int n=3;
+  int c=11;
+  int V[]={5,8,12};
+  int W[]={4,5,10};
+  record=myBitmask(n,c,V,W);
+  for(int x=0;x<record.size();x++)
+  {
+    cout<<record[x]<<"," << endl;
+  }
+   // PA1 hello=new PA1; 
+  return 0;
+}*/
