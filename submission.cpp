@@ -520,7 +520,7 @@ vector<int> myBitmask(int n, int c, int V[], int W[])
     vector<int> Z: Optimal choice of items for the given constraints - vector<int>
   */
 }
-int main()
+/*int main()
 {
   //cout<<"Hello word studfgfd"<<endl;
   vector<int> record;
@@ -556,4 +556,4 @@ int main()
   cout<<endl;
    // PA1 hello=new PA1; 
   return 0;
-}
+}*/
