@@ -97,23 +97,18 @@ vector<int> minElement(vector<vector<int> > A)
         }
         //cout<<"min modification"<<min1<<endl;
       }
-      else if(A[row][col]<min1 && A[row][col]>0)
+      else if(A[row][col]<=min1 && A[row][col]>0)
       {
         if(A[row][col]==min1)
         {
-          if(row<list.at(0))
+          if(row==list.at(0))
           {
-            list.at(0)=row;
-            list.at(1)=col;
-          }
-          else if(row==list.at(0))
-          {
-            
             if(col<list.at(1))
             {
               list.at(1)=col;
             }
           }
+          
         }
         else
         {
@@ -141,7 +136,7 @@ vector<int> minVectorValue(vector<int> K)
         col=x;
       }
     }
-    else if(K[x]<=min && K[x]>0)
+    else if(K[x]<min && K[x]>0)
     {
       min=K[x];
       col=x;
