@@ -108,7 +108,11 @@ vector<int> minElement(vector<vector<int> > A)
           }
           else if(row==list.at(0))
           {
-            list.at(1)=col;
+            
+            if(col<list.at(1))
+            {
+              list.at(1)=col;
+            }
           }
         }
         else
