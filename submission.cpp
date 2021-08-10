@@ -429,7 +429,7 @@ std::tuple< vector<vector<int> >, vector<int>, int> myBranchBound(vector<vector<
   }*/
 
   tuple< vector<vector<int> > , vector<int> , int> hello;
-  hello=make_tuple(taskInformation,listUpperBound,record1.size()-1);
+  hello=make_tuple(taskInformation,listUpperBound,record1.size());
   return hello;
 
  
