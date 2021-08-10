@@ -141,7 +141,7 @@ vector<int> minVectorValue(vector<int> K)
         col=x;
       }
     }
-    else if(K[x]<min && K[x]>0)
+    else if(K[x]<=min && K[x]>0)
     {
       min=K[x];
       col=x;
