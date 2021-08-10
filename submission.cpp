@@ -242,7 +242,7 @@ std::tuple< vector<vector<int> >, vector<int>, int> myBranchBound(vector<vector<
      {
        this->tasks=tasks1;
        this->count=count1;
-       isCrossed=false;
+       this->isCrossed=false;
        upperbound=-1;
        lowerbound=-1;
        
@@ -296,7 +296,7 @@ std::tuple< vector<vector<int> >, vector<int>, int> myBranchBound(vector<vector<
       listUpperBound.push_back(upperbound);
       isOptimal=a;
     }
-    if(lowerbound>=listUpperBound.at(listUpperBound.size()-1))
+    if(lowerbound>=listUpperBound.at(listUpperBound.size()-1)&& a->isCrossed==false)
     {
       a->isCrossed=true;
     }
