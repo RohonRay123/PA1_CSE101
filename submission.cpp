@@ -334,6 +334,7 @@ std::tuple< vector<vector<int> >, vector<int>, int> myBranchBound(vector<vector<
     }
 
     record2=record4;
+    record4.erase(record4.begin(),record4.end());
     int min2=listUpperBound[listUpperBound.size()-1];
     for(int x=0;x<record2.size();x++)
     {
