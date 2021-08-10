@@ -296,7 +296,7 @@ std::tuple< vector<vector<int> >, vector<int>, int> myBranchBound(vector<vector<
       listUpperBound.push_back(upperbound);
       isOptimal=a;
     }
-    if(lowerbound>=listUpperBound.at(listUpperBound.size()-1)&& a->isCrossed==false)
+    if(lowerbound>=listUpperBound.at(listUpperBound.size()-1))
     {
       a->isCrossed=true;
     }
@@ -350,11 +350,6 @@ std::tuple< vector<vector<int> >, vector<int>, int> myBranchBound(vector<vector<
         listUpperBound.push_back(min2);
         isOptimal=rec;
       }
-       /*if(rec->lowerbound >= min2)
-       {
-         rec->isCrossed=true;
-         
-       }*/
     }
     for(int y=0;y<record2.size();y++)
     {
