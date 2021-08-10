@@ -276,7 +276,7 @@ std::tuple< vector<vector<int> >, vector<int>, int> myBranchBound(vector<vector<
   //cout<<"hello23445454343"<<endl;
   int lowerbound=lower_bound(C,root->tasks);
  // cout<<"The lowerbound is " << lowerbound<< endl;
-  root->setBounds(upperbound,lowerbound);
+  root->setBounds(lowerbound,upperbound);
   listUpperBound.push_back(upperbound);
   nodeRecord* isOptimal;
   isOptimal=root;
