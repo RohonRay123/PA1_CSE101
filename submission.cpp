@@ -163,32 +163,38 @@ int SNH(vector<vector<int> > A)
 vector<int > SNHPathway(vector<vector<int> > A, vector<int> X)
 {
    vector<vector<int> > B=A;
+   vector<int> y(A.size(),0);
+   //cout<<"Size of y is: " << y.size()<<endl;
    //cout<<"The size of X is/...." << X.size()<<endl;
    for(int x=0;x<X.size();x++)
    {
+     y[x]=X[x];
      B=calcMatrixMinor(B,x,X[x]);
    }
    //cout<<"Look here" <<endl;
   vector<vector<int> > zeroMatrix(B.size(),vector<int>(B[0].size(),0));
  // vector<int> indexPosition(n,0);
   int number=0;
-  while(B!=zeroMatrix && X.size()<B.size())
+  while(B!=zeroMatrix)
   {
     //vector<int> info=minElement(B);
     vector<int> adder;
     //cout<<"Here look454"<<endl;
-    adder=minVectorValue(B[X.size()]);
+    adder=minElement(B);
     //cout<<"herherere" <<endl;
     //cout<<"The current min value is: "<<info.at(2)<<endl;
     //cout<<"The col value at min value is: " << info.at(1) <<endl;
-    X.push_back(adder.at(0));
+    //X.push_back(adder.at(0));
+    //cout<<"adder valure: " <<adder.at(0)<<endl;
+    y.at(adder.at(0))=adder.at(1);
    // cout<<"j56546f"<<endl;
     //cout<<X.size()<<endl;
    // cout<<"Entereing SNH Pathway for calcMinorMatrix"<<endl;
-    B=calcMatrixMinor(B,X.size()-1,adder.at(0));
-    //cout<<"gggg"<<endl;
+   //cout<<"No problem" << endl;
+    B=calcMatrixMinor(B,adder.at(0),adder.at(1));
+
   }
-   return X;
+   return y;
 
 }
 int upper_bound(vector<vector<int> > A, vector<int> X)
@@ -291,11 +297,15 @@ std::tuple< vector<vector<int> >, vector<int>, int> myBranchBound(vector<vector<
   record2.push_back(root);
   vector<vector<int> > listAdd=addVectors(root->tasks,numberList);
   //cout<<"here"<<endl;
+  //cout<<"The size of listAdd "<<listAdd.size()<<endl;
   for(int x=0;x<listAdd.size();x++)
   {
     nodeRecord* a=new nodeRecord(listAdd[x],record1.size());
+    
+    //cout<<endl;
     int upperbound=upper_bound(C,a->tasks);
     int lowerbound=lower_bound(C,a->tasks);
+    //cout<<"size of lower bound is: " << lowerbound<<endl;
   //  cout<<"here2"<<endl;
     a->setBounds(lowerbound,upperbound);
     if(upperbound < listUpperBound.at(listUpperBound.size()-1))
@@ -312,13 +322,13 @@ std::tuple< vector<vector<int> >, vector<int>, int> myBranchBound(vector<vector<
   }
   record2.erase(record2.begin());
   //cout<<"Here3"<<endl;
-  /*for(int x=0;x<record2.size();x++)
+  for(int x=0;x<record2.size();x++)
   {
     if(record2[x]->lowerbound >= listUpperBound[listUpperBound.size()-1])
     {
       record2[x]->isCrossed=true;
     }
-  }*/
+  }
   //cout<<"Here4"<<endl;
   int count=0;
   while(record2.size()!=0)
@@ -359,20 +369,20 @@ std::tuple< vector<vector<int> >, vector<int>, int> myBranchBound(vector<vector<
         listUpperBound.push_back(min2);
         isOptimal=rec;
       }
-       if(rec->lowerbound >= min2)
+       /*if(rec->lowerbound >= min2)
        {
          rec->isCrossed=true;
          
-       }
+       }*/
     }
-   /* for(int y=0;y<record2.size();y++)
+    for(int y=0;y<record2.size();y++)
     {
        nodeRecord* rec1=record2[y];
        if(rec1->lowerbound >= min2)
        {
          rec1->isCrossed=true;
        }
-    }*/
+    }
 
 
       
