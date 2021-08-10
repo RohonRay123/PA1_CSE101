@@ -222,11 +222,11 @@ std::tuple< vector<vector<int> >, vector<int>, int> myBranchBound(vector<vector<
   vector<vector<int> > matrixZeros(C.size(),vector<int>(C.size(),0));
   vector<int> zeros(C.size(),0);
   maker=make_tuple(matrixZeros, zeros, -1);
-  if(C.size()<2 || C.size()>10)
+  /*if(C.size()<2 || C.size()>10)
   {
     cout<<"Invalid Input Size" << endl;
     return maker;
-  }
+  }*/
   if(C[0].size()!=C.size())
   {
     cout<<"Invalid Input" << endl;
