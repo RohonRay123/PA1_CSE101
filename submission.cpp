@@ -104,7 +104,7 @@ vector<int> minVectorValue(vector<int> K)
 {
   int min=K[0];
   int col=-1;
-  for(int x=1;x<K.size();x++)
+  for(int x=0;x<K.size();x++)
   {
     if(min==0)
     {
