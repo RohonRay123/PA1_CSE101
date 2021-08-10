@@ -305,13 +305,13 @@ std::tuple< vector<vector<int> >, vector<int>, int> myBranchBound(vector<vector<
   }
   record2.erase(record2.begin());
   //cout<<"Here3"<<endl;
-  /*for(int x=0;x<record2.size();x++)
+  for(int x=0;x<record2.size();x++)
   {
     if(record2[x]->lowerbound >= listUpperBound[listUpperBound.size()-1])
     {
       record2[x]->isCrossed=true;
     }
-  }*/
+  }
   int count=0;
   while(record2.size()!=0)
   {
@@ -350,20 +350,20 @@ std::tuple< vector<vector<int> >, vector<int>, int> myBranchBound(vector<vector<
         listUpperBound.push_back(min2);
         isOptimal=rec;
       }
-       if(rec->lowerbound >= min2)
+       /*if(rec->lowerbound >= min2)
        {
          rec->isCrossed=true;
          
-       }
+       }*/
     }
-    /*for(int y=0;y<record2.size();y++)
+    for(int y=0;y<record2.size();y++)
     {
        nodeRecord* rec1=record2[y];
        if(rec1->lowerbound >= min2)
        {
          rec1->isCrossed=true;
        }
-    }*/
+    }
   }
  
   vector<int> tasking=SNHPathway(C,isOptimal->tasks);
