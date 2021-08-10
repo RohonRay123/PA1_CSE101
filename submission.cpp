@@ -47,12 +47,17 @@ vector<vector<int> > addVectors(vector<int> a, vector<int> numberList)
 }
 vector<vector<int> > calcMatrixMinor(vector<vector<int> > A, int i, int j)
 {
+ //  cout<<"checker1"<<endl;
    vector<vector <int> > B=A;
    for(int index=0;index<A.size();index++)
    {
      // B[index].erase(B[index].begin()+j);
+   //  cout<<"checker3"<<endl;
+    // cout<<"The value of j is" << j << endl; 
      B[index].at(j)=0;
+     //cout<<"checker4"<<endl;
    }
+   //cout<<"checker2"<<endl;
    vector<int> zeros(A[0].size(),0);
    //B.erase(B.begin()+i);
    B[i]=zeros;
@@ -103,7 +108,7 @@ vector<int> minElement(vector<vector<int> > A)
 vector<int> minVectorValue(vector<int> K)
 {
   int min=K[0];
-  int col=-1;
+  int col=0;
   for(int x=0;x<K.size();x++)
   {
     if(min==0)
@@ -163,7 +168,7 @@ vector<int > SNHPathway(vector<vector<int> > A, vector<int> X)
    {
      B=calcMatrixMinor(B,x,X[x]);
    }
-   
+   //cout<<"Look here" <<endl;
   vector<vector<int> > zeroMatrix(B.size(),vector<int>(B[0].size(),0));
  // vector<int> indexPosition(n,0);
   int number=0;
@@ -171,12 +176,17 @@ vector<int > SNHPathway(vector<vector<int> > A, vector<int> X)
   {
     //vector<int> info=minElement(B);
     vector<int> adder;
+    //cout<<"Here look454"<<endl;
     adder=minVectorValue(B[X.size()]);
+    //cout<<"herherere" <<endl;
     //cout<<"The current min value is: "<<info.at(2)<<endl;
     //cout<<"The col value at min value is: " << info.at(1) <<endl;
     X.push_back(adder.at(0));
-    
+   // cout<<"j56546f"<<endl;
+    //cout<<X.size()<<endl;
+   // cout<<"Entereing SNH Pathway for calcMinorMatrix"<<endl;
     B=calcMatrixMinor(B,X.size()-1,adder.at(0));
+    //cout<<"gggg"<<endl;
   }
    return X;
 
@@ -189,13 +199,10 @@ int upper_bound(vector<vector<int> > A, vector<int> X)
    // cout<<"About to go through for loop" << endl;
    for(int x=0;x<X.size();x++)
    {
-    // cout<<"check 1"<<endl;
      sum1=sum1+A[x][X[x]];
-    // cout<<"check2"<<endl;
      B=calcMatrixMinor(B,x,X[x]);
    }
-  // cout<<"The SUm:" << sum1 <<endl;
-   //vector<vector<int> > zeroMatrix(B.size(),vector<int>(B[0].size(),0));
+  
    sum1=sum1+SNH(B);
    return sum1;   
 }
@@ -222,11 +229,11 @@ std::tuple< vector<vector<int> >, vector<int>, int> myBranchBound(vector<vector<
   vector<vector<int> > matrixZeros(C.size(),vector<int>(C.size(),0));
   vector<int> zeros(C.size(),0);
   maker=make_tuple(matrixZeros, zeros, -1);
-  /*if(C.size()<2 || C.size()>10)
+  if(C.size()<2 || C.size()>10)
   {
     cout<<"Invalid Input Size" << endl;
     return maker;
-  }*/
+  }
   if(C[0].size()!=C.size())
   {
     cout<<"Invalid Input" << endl;
@@ -270,12 +277,12 @@ std::tuple< vector<vector<int> >, vector<int>, int> myBranchBound(vector<vector<
   vector<int> listUpperBound;
   vector<int> numberList=makeNumberList(C.size());
   nodeRecord* root=new nodeRecord({},0);
-  //cout<<"hello1111"<<endl;
+  //cout<<"hello1611"<<endl;
   int upperbound=upper_bound(C,root->tasks);
-//  cout<<"The upper bound is : " << upperbound<< endl;
+  //cout<<"The upper bound is : " << upperbound<< endl;
   //cout<<"hello23445454343"<<endl;
   int lowerbound=lower_bound(C,root->tasks);
- // cout<<"The lowerbound is " << lowerbound<< endl;
+  //cout<<"The lowerbound is " << lowerbound<< endl;
   root->setBounds(lowerbound,upperbound);
   listUpperBound.push_back(upperbound);
   nodeRecord* isOptimal;
@@ -283,11 +290,13 @@ std::tuple< vector<vector<int> >, vector<int>, int> myBranchBound(vector<vector<
   record1.push_back(root);
   record2.push_back(root);
   vector<vector<int> > listAdd=addVectors(root->tasks,numberList);
+  //cout<<"here"<<endl;
   for(int x=0;x<listAdd.size();x++)
   {
     nodeRecord* a=new nodeRecord(listAdd[x],record1.size());
     int upperbound=upper_bound(C,a->tasks);
     int lowerbound=lower_bound(C,a->tasks);
+  //  cout<<"here2"<<endl;
     a->setBounds(lowerbound,upperbound);
     if(upperbound < listUpperBound.at(listUpperBound.size()-1))
     {
@@ -302,6 +311,7 @@ std::tuple< vector<vector<int> >, vector<int>, int> myBranchBound(vector<vector<
     record2.push_back(a);
   }
   record2.erase(record2.begin());
+  //cout<<"Here3"<<endl;
   for(int x=0;x<record2.size();x++)
   {
     if(record2[x]->lowerbound >= listUpperBound[listUpperBound.size()-1])
@@ -309,6 +319,7 @@ std::tuple< vector<vector<int> >, vector<int>, int> myBranchBound(vector<vector<
       record2[x]->isCrossed=true;
     }
   }
+  //cout<<"Here4"<<endl;
   int count=0;
   while(record2.size()!=0)
   {
@@ -367,8 +378,24 @@ std::tuple< vector<vector<int> >, vector<int>, int> myBranchBound(vector<vector<
     //record2.erase(record2.begin());
 
   }
+ //cout<<"here5"<<endl;
   //cout<<"Is Optiaml true or false: " <<isOptimal->isCrossed<<endl;
+   //cout<<"The lower bound is " <<isOptimal->lowerbound<<endl;
+
+  /*for(int i=0;i<isOptimal->tasks.size();i++)
+  {
+    cout<<isOptimal->tasks[i]<<",";
+  }*/
+  //cout<<endl;
+  //vector<int> tasker=isOptimal->tasks;
+  /*for(int x=0;x<tasker.size();x++)
+  {
+    cout<<tasker[x];
+  }*/
+  //cout<<endl;
+//  cout<<"here657"<<endl;
   vector<int> tasking=SNHPathway(C,isOptimal->tasks);
+ // cout<<"here65645"<<endl;
   //bool hello56=false;
   //cout<<"Hhello 56 is: " << hello56<<endl;
   vector<vector<int> > taskInformation(C.size(),vector<int>(C[0].size(),0));
@@ -376,6 +403,15 @@ std::tuple< vector<vector<int> >, vector<int>, int> myBranchBound(vector<vector<
   {
      taskInformation[index][tasking[index]]=1;
   }
+  int counter=0;
+  /*for(int x=1;x<record1.size();x++)
+  {
+    nodeRecord* noder=record1[x];
+    if(noder->isCrossed==true)
+    {
+      counter++;
+    }
+  }*/
 
   tuple< vector<vector<int> > , vector<int> , int> hello;
   hello=make_tuple(taskInformation,listUpperBound,record1.size()-1);
@@ -524,40 +560,3 @@ vector<int> myBitmask(int n, int c, int V[], int W[])
     vector<int> Z: Optimal choice of items for the given constraints - vector<int>
   */
 }
-/*int main()
-{
-  //cout<<"Hello word studfgfd"<<endl;
-  vector<int> record;
-  int n=3;
-  int c=11;
-  int V[]={5,8,12};
-  int W[]={4,5,10};
-  record=myBitmask(n,c,V,W);
-  for(int x=0;x<record.size();x++)
-  {
-    cout<<record[x]<<"," ;
-  }
-  cout<<endl;
-  vector<vector<int> > matrix={{6,4,2,5},{2,1,5,4},{4,2,1,3},{5,3,3,2}};
-  tuple<vector<vector<int> >,vector <int>,int> maker;
-  maker=myBranchBound(matrix);
-  cout<< "Count of nodes" << get<2>(maker) <<endl;
-  vector<int> list=get<1>(maker);
-  for(int i=0;i<list.size();i++)
-  {
-    cout<<list[i]<<",";
-  }
-  cout<<endl;
-  vector<vector<int> > listing=get<0>(maker);
-  for(int x=0;x<listing.size();x++)
-  {
-    for(int y=0;y<listing[0].size();y++)
-    {
-      cout<<listing[x][y]<<",";
-    }
-    cout<<endl;
-  }
-  cout<<endl;
-   // PA1 hello=new PA1; 
-  return 0;
-}*/
