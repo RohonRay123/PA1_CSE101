@@ -97,7 +97,7 @@ vector<int> minElement(vector<vector<int> > A)
         }
         //cout<<"min modification"<<min1<<endl;
       }
-      else if(A[row][col]<=min1 && A[row][col]>0)
+      else if(A[row][col]<min1 && A[row][col]>0)
       {
         if(A[row][col]==min1)
         {
