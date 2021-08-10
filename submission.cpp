@@ -65,8 +65,11 @@ vector<vector<int> > calcMatrixMinor(vector<vector<int> > A, int i, int j)
 }
 vector<int> minElement(vector<vector<int> > A)
 {
-
-  vector<int> list(3,-1);
+  int min1=A[0][0];
+  vector<int> list(3,0);
+  list.at(0)=0;
+  list.at(1)=0;
+  list.at(2)=min1;
   if(A.size()==0)
   {
     //cout<<"Hello5"<<endl;
@@ -77,7 +80,7 @@ vector<int> minElement(vector<vector<int> > A)
     //cout<<"Hello6"<<endl;
     return list;
   }
-  int min1=A[0][0];
+    
   
   for(int row=0;row<A.size();row++)
   {
@@ -96,10 +99,25 @@ vector<int> minElement(vector<vector<int> > A)
       }
       else if(A[row][col]<=min1 && A[row][col]>0)
       {
-        min1=A[row][col];
-        list.at(0)=row;
-        list.at(1)=col;
-        list.at(2)=min1;
+        if(A[row][col]==min1)
+        {
+          if(row<list.at(0))
+          {
+            list.at(0)=row;
+            list.at(1)=col;
+          }
+          else if(row==list.at(0))
+          {
+            list.at(1)=col;
+          }
+        }
+        else
+        {
+          min1=A[row][col];
+          list.at(0)=row;
+          list.at(1)=col;
+          list.at(2)=min1;
+        }
       }
     }
   }
@@ -242,7 +260,7 @@ std::tuple< vector<vector<int> >, vector<int>, int> myBranchBound(vector<vector<
      {
        this->tasks=tasks1;
        this->count=count1;
-       this->isCrossed=false;
+       isCrossed=false;
        upperbound=-1;
        lowerbound=-1;
        
@@ -350,6 +368,11 @@ std::tuple< vector<vector<int> >, vector<int>, int> myBranchBound(vector<vector<
         listUpperBound.push_back(min2);
         isOptimal=rec;
       }
+       /*if(rec->lowerbound >= min2)
+       {
+         rec->isCrossed=true;
+         
+       }*/
     }
     for(int y=0;y<record2.size();y++)
     {
