@@ -103,13 +103,16 @@ vector<int> minElement(vector<vector<int> > A)
 vector<int> minVectorValue(vector<int> K)
 {
   int min=K[0];
-  int col=0;
+  int col=-1;
   for(int x=1;x<K.size();x++)
   {
     if(min==0)
     {
       min=K[x];
-      col=x;
+      if(min!=0)
+      {
+        col=x;
+      }
     }
     else if(K[x]<min && K[x]>0)
     {
