@@ -101,12 +101,10 @@ vector<int> minElement(vector<vector<int> > A)
       {
         if(A[row][col]==min1)
         {
-          if(row==list.at(0))
+          if(col<list.at(1))
           {
-            if(col<list.at(1))
-            {
-              list.at(1)=col;
-            }
+             list.at(0)=row;
+             list.at(1)=col;
           }
           
         }
@@ -538,3 +536,4 @@ vector<int> myBitmask(int n, int c, int V[], int W[])
     vector<int> Z: Optimal choice of items for the given constraints - vector<int>
   */
 }
+
