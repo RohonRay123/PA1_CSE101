@@ -321,7 +321,21 @@ std::tuple< vector<vector<int> >, vector<int>, int> myBranchBound(vector<vector<
   int count=0;
   while(record2.size()!=0)
   {
+
      vector<nodeRecord*> record4;
+     for(int a=0;a<record2.size();a++)
+     {
+       for(int b=a+1;b<record2.size();b++)
+       {
+          if(record2[a]->lowerbound>record2[b]->lowerbound)
+          {
+            nodeRecord* temp=record2[a];
+            record2[a]=record2[b];
+            record2[b]=temp;
+          }
+       }
+     }
+
      for(int x=0;x<record2.size();x++)
      {
       
@@ -347,30 +361,14 @@ std::tuple< vector<vector<int> >, vector<int>, int> myBranchBound(vector<vector<
           p->setBounds(lowerbound,upperbound);
           record1.push_back(p);
           record4.push_back(p);
-          if(p->lowerbound<listLowerBound[listLowerBound.size()])
-          {
-            vector<vector<int> > listAdd1;
-            listAdd1=addVectors(p->tasks,numberList);
-            for(int index4=0;index4<listAdd1.size();index4++)
-            {
-              nodeRecord* m=new nodeRecord(listAdd1[index4],record1.size());
-              int upperbound1=upper_bound(C,m->tasks);
-              int lowerbound1=lower_bound(C,m->tasks);
-              m->setBounds(lowerbound1,upperbound1);
-              record1.push_back(m);
-              record4.push_back(m);
-              listLowerBound.push_back(p->lowerbound);
-
-            }
-          }
         
           nodeRecord* record2info=record2[x];
 
-          if(p->upperbound<=record2info->lowerbound)
+          /*if(p->upperbound<=record2info->lowerbound)
           {
             record2info->isCrossed=true;
             break;
-          }
+          }*/
           
 
 
