@@ -340,10 +340,10 @@ std::tuple< vector<vector<int> >, vector<int>, int> myBranchBound(vector<vector<
           record1.push_back(p);
           record4.push_back(p);
         
-          if(p->upperbound<listUpperBound[listUpperBound.size()-1])
+         /* if(p->upperbound<listUpperBound[listUpperBound.size()-1])
           {
             listUpperBound.push_back(p->upperbound);
-          }
+          }*/
           nodeRecord* record2info=record2[x];
           if(p->upperbound<=record2info->lowerbound)
           {
