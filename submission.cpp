@@ -327,23 +327,24 @@ std::tuple< vector<vector<int> >, vector<int>, int> myBranchBound(vector<vector<
       {
         continue;
       }
-      //if(record2[x]->isCrossed==false)
-       if(record2[x]->lowerbound<listUpperBound[listUpperBound.size()-1])
+      if(record2[x]->isCrossed==false)
       {
+        vector<int> taskCheck=record2[x]->tasks;
+        if(taskCheck.size()>=C.size())
+        {
+          continue;
+        }
         listAdd=addVectors(record2[x]->tasks,numberList);
         for(int i=0;i<listAdd.size();i++)
         {
           nodeRecord* p=new nodeRecord(listAdd[i],record1.size());
+
           int upperbound=upper_bound(C,p->tasks);
           int lowerbound=lower_bound(C,p->tasks);
           p->setBounds(lowerbound,upperbound);
           record1.push_back(p);
           record4.push_back(p);
         
-         /* if(p->upperbound<listUpperBound[listUpperBound.size()-1])
-          {
-            listUpperBound.push_back(p->upperbound);
-          }*/
           nodeRecord* record2info=record2[x];
           if(p->upperbound<=record2info->lowerbound)
           {
