@@ -267,6 +267,7 @@ std::tuple< vector<vector<int> >, vector<int>, int> myBranchBound(vector<vector<
   vector<nodeRecord* > record1;
   vector<nodeRecord* > record2;
   vector<int> listUpperBound;
+  vector<int> listLowerBound;
   vector<int> numberList=makeNumberList(C.size());
   nodeRecord* root=new nodeRecord({},0);
   //cout<<"hello1611"<<endl;
@@ -277,6 +278,7 @@ std::tuple< vector<vector<int> >, vector<int>, int> myBranchBound(vector<vector<
   //cout<<"The lowerbound is " << lowerbound<< endl;
   root->setBounds(lowerbound,upperbound);
   listUpperBound.push_back(upperbound);
+  listLowerBound.push_back(lowerbound);
   nodeRecord* isOptimal;
   isOptimal=root;
   record1.push_back(root);
@@ -293,6 +295,7 @@ std::tuple< vector<vector<int> >, vector<int>, int> myBranchBound(vector<vector<
     int lowerbound=lower_bound(C,a->tasks);
     //cout<<"size of lower bound is: " << lowerbound<<endl;
   //  cout<<"here2"<<endl;
+   
     a->setBounds(lowerbound,upperbound);
     if(upperbound < listUpperBound.at(listUpperBound.size()-1))
     {
@@ -344,13 +347,31 @@ std::tuple< vector<vector<int> >, vector<int>, int> myBranchBound(vector<vector<
           p->setBounds(lowerbound,upperbound);
           record1.push_back(p);
           record4.push_back(p);
+          if(p->lowerbound<listLowerBound[listLowerBound.size()])
+          {
+            vector<vector<int> > listAdd1;
+            listAdd1=addVectors(p->tasks,numberList);
+            for(int index4=0;index4<listAdd1.size();index4++)
+            {
+              nodeRecord* m=new nodeRecord(listAdd1[index4],record1.size());
+              int upperbound1=upper_bound(C,m->tasks);
+              int lowerbound1=lower_bound(C,m->tasks);
+              m->setBounds(lowerbound1,upperbound1);
+              record1.push_back(m);
+              record4.push_back(m);
+              listLowerBound.push_back(p->lowerbound);
+
+            }
+          }
         
           nodeRecord* record2info=record2[x];
+
           if(p->upperbound<=record2info->lowerbound)
           {
-            
+            record2info->isCrossed=true;
             break;
           }
+          
 
 
         }
